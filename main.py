@@ -1,8 +1,13 @@
 from RegexEvaluator import RegexEvaluator
-from RegexTree import *
+from RegexParser import RegexParser
 
-root = Concat(Star(Or(Letter('a'), Letter('b'))),
-              Concat(Letter('a'), Or(Letter('a'), Letter('b'))))
+parser = RegexParser()
+
+regexs = ["a*", "ab", "a||b", "(a|b)*asdb(a|b)"]
+for regex in regexs:
+    print(regex, parser.check(regex))
+
+root = parser.parse("(a|b)*a(a|b)")
 
 evaluator = RegexEvaluator(root)
 evaluator.draw_nfa()
